@@ -1,27 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:kwcalculator/app/repository/repository.dart';
 import 'package:kwcalculator/app/view/calculator.dart';
+import 'package:kwcalculator/app/view/config.dart';
 
 import '../components/kwButton.dart';
 
 class HelpPage extends StatefulWidget {
-  const HelpPage({super.key});
+  HelpPage({super.key, required this.initialPage});
+  bool initialPage = false;
 
   @override
   State<HelpPage> createState() => _HelpPageState();
 }
 
 class _HelpPageState extends State<HelpPage> {
-  bool showHelp = false;
+  bool showHelp = true;
+  final Repository repository = Repository();
 
-  void shoeHelpChanged(bool? value) {
-    showHelp = !showHelp;
-    print(showHelp);
+  void showHelpChanged(bool? value) {
+    repository.saveShowHelpToStart(!showHelp);
+    setState(() {
+      showHelp = !showHelp;
+    });
   }
 
   void continueBtnPressed() {
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-      return const CalculatorPage();
-    }));
+    if(widget.initialPage) {
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+        return const CalculatorPage();
+      }));
+    } else  {
+      Navigator.of(context).pop(MaterialPageRoute(builder: (context) {
+        return const ConfigPage();
+      }));
+    }
+  }
+
+  void _loadShowHelp() async {
+    bool value = await repository.getShowHelpToStart();
+    if(widget.initialPage && !value) {
+      continueBtnPressed();
+    }
+    setState(() {
+      showHelp = value;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadShowHelp();
   }
 
   @override
@@ -48,13 +76,13 @@ class _HelpPageState extends State<HelpPage> {
                   ),
                   const SizedBox(height: 20,),
                   CheckboxListTile(
-                    value: false,
-                    onChanged: shoeHelpChanged,
+                    value: showHelp,
+                    onChanged: showHelpChanged,
                     title: const Text('Mostrar ayuda al iniciar'),
                     controlAffinity: ListTileControlAffinity.leading,
                   ),
                   const SizedBox(height: 20,),
-                  KWButton(text: 'SALTAR',onPressed: continueBtnPressed,)
+                  KWButton(text: widget.initialPage ? 'SALTAR' : 'VOLVER',onPressed: continueBtnPressed,)
                 ],
               ),
             ),

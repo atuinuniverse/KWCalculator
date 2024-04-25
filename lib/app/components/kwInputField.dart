@@ -67,6 +67,7 @@ class KWInputField extends StatelessWidget {
           filled: true,
           fillColor: isOrange ? KWTheme().alertColor : KWTheme().textColor,
           border: InputBorder.none,
+          counterText: '',
         ),
         onTap: onTap,
         onChanged: onChanged,

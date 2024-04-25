@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kwcalculator/app/repository/repository.dart';
 import 'package:kwcalculator/app/utils/kwtheme.dart';
 import 'package:kwcalculator/app/view/help.dart';
 
@@ -8,6 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final KWTheme kwTheme = KWTheme();
+    final Repository repository = Repository();
 
     return MaterialApp(
       title: 'KWCalculator',
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      home: const HelpPage(),
+      home: HelpPage(initialPage: true,),
     );
   }
 }
