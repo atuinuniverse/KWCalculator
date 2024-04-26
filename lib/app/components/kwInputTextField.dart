@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class KWInputTextField extends StatefulWidget {
-  const KWInputTextField({super.key, required this.label, this.initialVal = ''});
+  const KWInputTextField({super.key, required this.label, this.initialVal = '', required this.onValueChanged});
 
   final String label;
   final String initialVal;
+  final Function(String) onValueChanged;
 
   @override
   State<KWInputTextField> createState() => _KWInputTextFieldState();
@@ -46,6 +46,7 @@ class _KWInputTextFieldState extends State<KWInputTextField> {
             ),
             contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
           ),
+          onChanged: widget.onValueChanged,
         ),
       ],
     );

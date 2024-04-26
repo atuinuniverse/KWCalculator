@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:kwcalculator/app/models/registry.dart';
 
 class KWRegistry extends StatelessWidget {
-  const KWRegistry({super.key, required this.registry});
+  const KWRegistry({super.key, required this.registry, required this.onDeleteTap, required this.index});
 
   final Registry registry;
+  final Function(int) onDeleteTap;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class KWRegistry extends StatelessWidget {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => onDeleteTap(index),
                   child: const SizedBox(
                     width: 42,
                     child: Icon(Icons.delete_outline, size: 42,),

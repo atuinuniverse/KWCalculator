@@ -4,12 +4,13 @@ import 'package:flutter/services.dart';
 import '../utils/kwtheme.dart';
 
 class KWInputField extends StatelessWidget {
-  KWInputField({super.key, this.isOrange = false, required this.focusNode, this.nextFocusNode});
+  const KWInputField({super.key, this.isOrange = false, required this.focusNode, this.nextFocusNode, required this.onValueChanged, required this.controller});
 
   final bool isOrange;
-  FocusNode focusNode;
-  FocusNode? nextFocusNode;
-  TextEditingController controller = TextEditingController(text: '0');
+  final FocusNode focusNode;
+  final FocusNode? nextFocusNode;
+  final TextEditingController controller;
+  final Function(String) onValueChanged;
 
   void onTap() {
     if(controller.text == '0') {
@@ -31,6 +32,7 @@ class KWInputField extends StatelessWidget {
 
   void onChanged(String? value) {
     if(controller.text != '') {
+      onValueChanged(value!);
       if(nextFocusNode != null) {
         nextFocusNode!.requestFocus();
       }

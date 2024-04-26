@@ -20,7 +20,7 @@ class _KWNavbarState extends State<KWNavbar> {
       if(value == 1) {
         return const ConfigPage();
       } else if(value == 2)  {
-        return const CalculatorPage();
+        return CalculatorPage();
       } else {
         return const HistoryPage();
       }

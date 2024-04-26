@@ -6,8 +6,8 @@ import 'package:kwcalculator/app/view/config.dart';
 import '../components/kwButton.dart';
 
 class HelpPage extends StatefulWidget {
-  HelpPage({super.key, required this.initialPage});
-  bool initialPage = false;
+  const HelpPage({super.key, required this.initialPage});
+  final bool initialPage;
 
   @override
   State<HelpPage> createState() => _HelpPageState();
@@ -27,7 +27,7 @@ class _HelpPageState extends State<HelpPage> {
   void continueBtnPressed() {
     if(widget.initialPage) {
       Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-        return const CalculatorPage();
+        return CalculatorPage();
       }));
     } else  {
       Navigator.of(context).pop(MaterialPageRoute(builder: (context) {

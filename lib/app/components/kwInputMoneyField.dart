@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
 class KWInputMoneyField extends StatefulWidget {
   const KWInputMoneyField({super.key, required this.label, this.initialVal = 0.0});
