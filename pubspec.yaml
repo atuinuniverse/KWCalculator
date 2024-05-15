@@ -37,7 +37,6 @@ dependencies:
   cupertino_icons: ^1.0.6
   shared_preferences: ^2.2.3
   google_mobile_ads: ^5.0.0
-  flutter_image_slideshow: ^0.1.6
 
 dev_dependencies:
   flutter_test:

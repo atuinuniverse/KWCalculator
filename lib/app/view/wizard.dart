@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kwcalculator/app/components/kwNavbar.dart';
 
@@ -74,18 +73,15 @@ class _WizardPageState extends State<WizardPage> {
                   ? const SizedBox()
                   : AdWidget(ad: _bannerAd!),
             ),
-            ImageSlideshow(
-              indicatorColor: Colors.blue,
-              onPageChanged: (value) {
-                debugPrint('Page changed: $value');
-              },
-              autoPlayInterval: 3000,
-              isLoop: true,
-              children: [
-                Center(child: Text('1'),),
-                Center(child: Text('2'),),
-                Center(child: Text('3'),),
-              ],
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+              child: Column(
+                children: [
+                  Center(
+                    child: Text('1'),
+                  )
+                ],
+              ),
             ),
             const KWNavbar(active: 2,)
           ]
