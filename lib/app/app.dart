@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
     final Repository repository = Repository();
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'KWCalculator',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: kwTheme.primaryColor),

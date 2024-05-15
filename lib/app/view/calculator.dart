@@ -130,7 +130,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                         : AdWidget(ad: _bannerAd!),
                   ),
                   Padding(
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                         child: Column(
                           children: [
                             KWInputTextField(label: 'Nombre', initialVal: name, onValueChanged: onNameChange,),
@@ -150,7 +150,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
                           ],
                       ),
                   ),
-                  const KWNavbar(active: 2,)
+                  const KWNavbar(active: 3,)
                 ]
               ),
           ),

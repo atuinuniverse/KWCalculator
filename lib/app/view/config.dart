@@ -17,11 +17,20 @@ class _ConfigPageState extends State<ConfigPage> {
   final Repository repository = Repository();
   bool showHelp = false;
   double kWhVal = 800.0;
+  TextEditingController controller = TextEditingController(text: '800.0');
 
   void _loadKWhVal() async {
-    double kWhVal = await repository.getValueKWh();
+    double value = await repository.getValueKWh();
     setState(() {
-      this.kWhVal = kWhVal;
+      kWhVal = value;
+      controller = TextEditingController(text: kWhVal.toString());
+    });
+  }
+
+  void saveKWhVal(double value) {
+    repository.saveValueKWh(value);
+    setState(() {
+      kWhVal = value;
     });
   }
 
@@ -35,6 +44,7 @@ class _ConfigPageState extends State<ConfigPage> {
   void initState() {
     super.initState();
     _loadKWhVal();
+    controller = TextEditingController(text: kWhVal.toString());
   }
 
   @override
@@ -49,7 +59,7 @@ class _ConfigPageState extends State<ConfigPage> {
                     padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
-                        KWInputMoneyField(label: 'Valor kWh', initialVal: kWhVal,),
+                        KWInputMoneyField(label: 'Valor kWh', initialVal: kWhVal, onValueChanged: saveKWhVal, controller: controller,),
                         const SizedBox(height: 20,),
                         KWButton(text: 'AYUDA', onPressed: onPressed),
                       ],

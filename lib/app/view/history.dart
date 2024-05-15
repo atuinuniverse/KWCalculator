@@ -63,12 +63,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   ),
                 ],
               ),
-              const Positioned(
-                left: 0.0,
-                right: 0.0,
-                bottom: 0.0,
-                child: KWNavbar(active: 3,),
-              ),
+              const KWNavbar(active: 4,),
             ],
           ),
         ),

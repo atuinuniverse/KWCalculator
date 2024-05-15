@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class KWInputMoneyField extends StatefulWidget {
-  const KWInputMoneyField({super.key, required this.label, this.initialVal = 0.0});
+  const KWInputMoneyField({super.key, required this.label, this.initialVal = 0.0, required this.onValueChanged, required this.controller});
 
   final String label;
   final double initialVal;
+  final Function(double) onValueChanged;
+  final TextEditingController controller;
 
   @override
   State<KWInputMoneyField> createState() => _KWInputMoneyFieldState();
@@ -13,18 +15,18 @@ class KWInputMoneyField extends StatefulWidget {
 
 class _KWInputMoneyFieldState extends State<KWInputMoneyField> {
 
-  TextEditingController controller = TextEditingController();
   FocusNode focusNode = FocusNode();
 
-  @override
-  void initState() {
-    super.initState();
-    controller = TextEditingController(text: widget.initialVal.toString());
+  void onLostFocus() {
+    if(widget.controller.text == '') {
+      widget.controller.text = widget.initialVal.toString();
+    }
   }
 
-  void onLostFocus() {
-    if(controller.text == '') {
-      controller.text = '800';
+  void onChanged(String? value) {
+    double priceKWh = double.tryParse(value!) ?? 800.0;
+    if(priceKWh > 0) {
+      widget.onValueChanged(priceKWh);
     }
   }
 
@@ -46,7 +48,7 @@ class _KWInputMoneyFieldState extends State<KWInputMoneyField> {
         const SizedBox(height: 5,),
         TextField(
           focusNode: focusNode,
-          controller: controller,
+          controller: widget.controller,
           textAlign: TextAlign.start,
           style: const TextStyle(
             fontSize: 24,
@@ -63,6 +65,7 @@ class _KWInputMoneyFieldState extends State<KWInputMoneyField> {
             contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
             prefix: const Text('\$'),
           ),
+          onChanged: onChanged,
         ),
       ],
     );

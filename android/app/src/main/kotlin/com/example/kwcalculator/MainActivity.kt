@@ -1,4 +1,4 @@
-package com.example.kwcalculator
+package com.atuinuniverse.kwcalculator
 
 import io.flutter.embedding.android.FlutterActivity
 
