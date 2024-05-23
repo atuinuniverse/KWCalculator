@@ -47,7 +47,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
     setState(() {
       total = diff * kWhVal;
     });
-    repository.addRegistry(Registry(name, DateTime.now(), diff, kWhVal, total));
+    repository.addRegistry(Registry(name, DateTime.now(), diff, kWhVal, total, total, ''));
   }
 
   void onNameChange(String value) {

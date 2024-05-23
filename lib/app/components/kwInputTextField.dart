@@ -22,6 +22,12 @@ class _KWInputTextFieldState extends State<KWInputTextField> {
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     return Column(

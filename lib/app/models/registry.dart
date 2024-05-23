@@ -2,13 +2,15 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 class Registry {
-  Registry(this.name, this.datetime, this.kWh, this.kWhValue, this.total);
+  Registry(this.name, this.datetime, this.kWh, this.kWhValue, this.total, this.consume, this.concept);
   Registry.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     datetime = DateTime.parse(json['datetime']);
     kWh = double.parse(json['kwh'].toStringAsFixed(2));
     kWhValue = json['kwhval'];
     total = double.parse(json['total'].toStringAsFixed(2));
+    consume = consume;
+    concept = concept;
   }
 
   late final String name;
@@ -16,6 +18,8 @@ class Registry {
   late final double kWh;
   late final double kWhValue;
   late final double total;
+  late final double consume;
+  late final String concept;
 
   String capitalizeFirstLetter(String input) {
     if (input.isEmpty) return input;
@@ -38,7 +42,9 @@ class Registry {
       'datetime': datetime.toString(),
       'kwh': kWh,
       'kwhval': kWhValue,
-      'total': total
+      'total': total,
+      'consume': consume,
+      'concept': concept
     };
   }
 }

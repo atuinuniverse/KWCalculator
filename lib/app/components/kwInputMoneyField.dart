@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class KWInputMoneyField extends StatefulWidget {
-  const KWInputMoneyField({super.key, required this.label, this.initialVal = 0.0, required this.onValueChanged, required this.controller});
+  const KWInputMoneyField({
+    super.key,
+    required this.label,
+    this.initialVal = 0.0,
+    required this.onValueChanged,
+    required this.controller
+  });
 
   final String label;
   final double initialVal;
@@ -14,36 +20,48 @@ class KWInputMoneyField extends StatefulWidget {
 }
 
 class _KWInputMoneyFieldState extends State<KWInputMoneyField> {
-
   FocusNode focusNode = FocusNode();
 
-  void onLostFocus() {
-    if(widget.controller.text == '') {
-      widget.controller.text = widget.initialVal.toString();
+  @override
+  void initState() {
+    super.initState();
+    focusNode.addListener(_handleFocusChange);
+  }
+
+  @override
+  void dispose() {
+    focusNode.removeListener(_handleFocusChange);
+    focusNode.dispose();
+    super.dispose();
+  }
+
+  void _handleFocusChange() {
+    if (focusNode.hasFocus) {
+      if (widget.controller.text == '0' || widget.controller.text == '0.0') {
+        widget.controller.clear();
+      }
+    } else {
+      if (widget.controller.text.isEmpty) {
+        widget.controller.text = widget.initialVal.toString();
+      }
     }
   }
 
   void onChanged(String? value) {
-    double priceKWh = double.tryParse(value!) ?? 800.0;
-    if(priceKWh > 0) {
-      widget.onValueChanged(priceKWh);
-    }
+    double priceKWh = double.tryParse(value!) ?? 0.0;
+    widget.onValueChanged(priceKWh);
   }
 
   @override
   Widget build(BuildContext context) {
-    focusNode.addListener(() {
-      if (!focusNode.hasFocus) {
-        onLostFocus();
-      }
-    });
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(widget.label,
+        Text(
+          widget.label,
           style: const TextStyle(
-            fontWeight: FontWeight.bold,),
+            fontWeight: FontWeight.bold,
+          ),
         ),
         const SizedBox(height: 5,),
         TextField(
@@ -57,6 +75,7 @@ class _KWInputMoneyFieldState extends State<KWInputMoneyField> {
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
           ],
+          keyboardType: TextInputType.number,
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.grey),
