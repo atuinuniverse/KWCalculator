@@ -347,6 +347,7 @@ class _WizardPageState extends State<WizardPage> {
     return Scaffold(
       body: SafeArea(
         child: Stack(
+          alignment: Alignment.topCenter,
           children: [
             SizedBox(
               width: widget.adSize.width.toDouble(),

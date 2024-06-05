@@ -74,7 +74,6 @@ class _CalculatorPageState extends State<CalculatorPage> {
       adUnitId: widget.adUnitId,
       request: const AdRequest(),
       listener: BannerAdListener(
-        // Called when an ad is successfully received.
         onAdLoaded: (ad) {
           if (!mounted) {
             ad.dispose();
@@ -121,6 +120,7 @@ class _CalculatorPageState extends State<CalculatorPage> {
     return Scaffold(
           body: SafeArea(
               child: Stack(
+                alignment: Alignment.topCenter,
                 children: [
                   SizedBox(
                     width: widget.adSize.width.toDouble(),
@@ -133,6 +133,9 @@ class _CalculatorPageState extends State<CalculatorPage> {
                         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                         child: Column(
                           children: [
+                            SizedBox(
+                              height: 50,
+                            ),
                             KWInputTextField(label: 'Nombre', initialVal: name, onValueChanged: onNameChange,),
                             const SizedBox(height: 20,),
                             KWInputCalc(label: 'Consumo inicial', onValueChanged: onkWhStartChange,),
